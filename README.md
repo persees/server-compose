@@ -23,14 +23,18 @@ mysql -h 127.0.0.1 -u root -proot
 
 ## postgres (exposed on localhost:5432)
 psql -h 127.0.0.1 -U postgres
+
+## Microsoft SQL Server (access via the container, but the port is exposed either way on 1433)
+sudo docker exec -it mssqlContainer /bin/bash
+/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P StrongPassword123!
 ```
 
 ## Databases
 Databases available to test:
 - [x] mysql
 - [x] PostgresSQL
-- [ ] OracleDB
-- [ ] Microsoft SQL
+- [ ] OracleDB (Due to the licenses and restrictions this is not gonna be implemented)
+- [x] Microsoft SQL
 
 ## Disclosure
 - Docker is using simple passwords to start containers. It is not a good idea to run this in an unsafe environment.
