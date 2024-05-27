@@ -16,5 +16,20 @@ services:
       - mysql_data:/var/lib/mysql
       - ./mysql-initdb:/docker-entrypoint-initdb.d
 
+  postgres:
+    image: postgres:latest
+    container_name: postgresContainer
+    restart: always
+    environment:
+      POSTGRES_DB: public
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres-initdb:/docker-entrypoint-initdb.d
+
 volumes:
   mysql_data:
+  postgres_data:

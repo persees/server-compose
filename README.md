@@ -20,14 +20,17 @@ docker-compose down -v
 
 ## mysql (exposed on localhost:3306)
 mysql -h 127.0.0.1 -u root -proot
+
+## postgres (exposed on localhost:5432)
+psql -h 127.0.0.1 -U postgres
 ```
 
 ## Databases
 Databases available to test:
 - [x] mysql
-- [] PostgresSQL
-- [] OracleDB
-- [] Microsoft SQL
+- [x] PostgresSQL
+- [ ] OracleDB
+- [ ] Microsoft SQL
 
 ## Disclosure
 - Docker is using simple passwords to start containers. It is not a good idea to run this in an unsafe environment.
