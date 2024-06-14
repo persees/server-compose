@@ -1,3 +1,11 @@
+CREATE DATABASE IF NOT EXISTS wordpress;
+
+CREATE USER 'wordpress'@'%' IDENTIFIED BY 'wordpress';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'%';
+FLUSH PRIVILEGES;
+
+use public;
+
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name varchar(255) not null,

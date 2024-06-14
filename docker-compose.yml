@@ -3,6 +3,9 @@ version: "3.8"
 services:
   mysql:
     image: mysql:latest
+    profiles:
+      - databases
+      - webservers
     container_name: mysqlContainer
     restart: always
     environment:
@@ -18,6 +21,8 @@ services:
 
   postgres:
     image: postgres:latest
+    profiles:
+      - databases
     container_name: postgresContainer
     restart: always
     environment:
@@ -32,6 +37,8 @@ services:
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
+    profiles:
+      - databases
     container_name: mssqlContainer
     environment:
       ACCEPT_EULA: "Y"
@@ -49,6 +56,8 @@ services:
       timeout: 3s
   sqlserver.configurator:
     container_name: mssqlContainerConfiguration
+    profiles:
+      - databases
     image: mcr.microsoft.com/mssql/server:2019-latest
     volumes:
       - ./mssql-initdb:/docker-entrypoint-initdb.d
@@ -56,6 +65,20 @@ services:
       sqlserver:
         condition: service_healthy
     command: /bin/bash -c '/opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P StrongPassword123! -i docker-entrypoint-initdb.d/init.sql; echo "All done!";'
+
+  wordpress:
+    image: wordpress:latest
+    profiles:
+      - webservers
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: mysql:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    depends_on:
+      - mysql
 
 volumes:
   mysql_data:
